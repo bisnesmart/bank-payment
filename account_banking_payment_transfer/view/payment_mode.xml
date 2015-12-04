@@ -2,7 +2,7 @@
 <openerp>
     <data>
 
-        <!-- 
+        <!--
              Add the payment mode transfer account settings
         -->
         <record id="view_payment_mode_form_inherit" model="ir.ui.view">
@@ -13,9 +13,15 @@
                 <xpath expr="/form/group[@col='4']" position="inside">
                     <group name="trf-move-config" string="Transfer move settings" colspan="2">
                         <field name="transfer_account_id"
-                               domain="[('type', '=', 'other'),
-                                       ('reconcile', '=', True),
-                                       ('company_id', '=', company_id)]"
+                               domain="[
+                                ('reconcile', '=', True),
+                                ('company_id', '=', company_id),
+                                '|',
+                                ('type', '=', 'other'),
+                                '|',
+                                 ('type','=','payable'),
+                                 ('type','=','receivable')
+                                      ]"
                                context="{
                                    'default_type': 'other',
                                    'default_reconcile': True,
